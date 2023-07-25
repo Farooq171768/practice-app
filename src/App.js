@@ -4,10 +4,11 @@ import "./App.css";
 import { Header } from "./components/Header";
 // import {Button} from 'reactstrap'
 import { ToastContainer, toast } from "react-toastify";
-import { Col, Container, Navbar, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 import { Menus } from "./components/Menus";
 import { Home } from "./components/Home";
 import { Routes, Route } from "react-router-dom";
+import { Navbar } from "./components/Navbar";
 
 import { Course } from "./components/Course";
 import { AllCourses } from "./components/AllCourses";

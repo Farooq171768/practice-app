@@ -19,13 +19,14 @@ export const AddCourse = () => {
 
   //creating function to post data to server
   const postDataToServer=data=>{
-    axios.post(`${base_url}/courses`,data)
+    axios.post(`http://localhost:5000/courses`,data)
     .then((response)=>{
      console.log(response)
      console.log('success')
      toast.success('course added successfully')
      setCourse({id:'',title:'',decription:''})
-    },(error)=>{
+    })
+    .catch((error)=>{
      console.log(error)
      console.log('error')
      toast.error('Error ! Something went wrong')
@@ -39,7 +40,7 @@ export const AddCourse = () => {
           <Label for="courseId">Course Id</Label>
           <Input
             type="text"
-            placeholder="Enter here"
+            placeholder="Enter Course Id"
             name="courseId"
             id="courseId"
             onChange={(e)=>setCourse({...course,id:e.target.value})}
@@ -47,7 +48,7 @@ export const AddCourse = () => {
         </FormGroup>
         <FormGroup>
           <Label for="title">Course Title</Label>
-          <Input type="text" placeholder="Enter title here" id="title"
+          <Input type="text" placeholder="Enter Course Title" id="title"
           onChange={(e)=>setCourse({...course,title:e.target.value})} />
         </FormGroup>
         <FormGroup>
@@ -55,7 +56,7 @@ export const AddCourse = () => {
           <Input
             type="textarea"
             id="description"
-            placeholder="Enter description here"
+            placeholder="Enter Description here"
             style={{height:150}}
             onChange={(e)=>setCourse({...course,description:e.target.value})}
           />

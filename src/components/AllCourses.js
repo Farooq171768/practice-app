@@ -11,7 +11,7 @@ export const AllCourses=()=>{
   },[])
   //function to call server
   const getAllCoursesFromServer=()=>{
-    axios.get(`${base_url/courses}`)
+    axios.get(`http://localhost:5000/courses`)
     .then(response=>{
       //console.log(response)
       console.log(response.data)

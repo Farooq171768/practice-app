@@ -1,0 +1,14 @@
+{
+  "courses": [
+    {
+      "id": "1",
+      "title": "java",
+      "description": "java"
+    },
+    {
+      "id": "2",
+      "title": "python",
+      "description": "python"
+    }
+  ]
+}
