@@ -1,9 +1,14 @@
 import axios from 'axios'
 import {Card,CardBody,CardTitle,CardSubtitle,CardText,CardFooter,Button,Container} from 'reactstrap'
-import base_url from '../api/bootapi'
 import { toast } from 'react-toastify'
+import { useState } from 'react'
 
-export const Course = ({course,update})=>{
+export const Course = ({course,update,updateCourseData})=>{
+    const [isEditing, setIsEditing] = useState(false);
+  const [updatedCourse, setUpdatedCourse] = useState({
+    title: course.title,
+    description: course.description,
+  });
 const deleteCourse=(id)=>{
     axios.delete(`http://localhost:5000/courses/${id}`)
     .then((response)=>{
@@ -14,22 +19,39 @@ const deleteCourse=(id)=>{
        toast.error('course not deleted !! server problem') 
     })
 }
-// const updatedCourseData={
-//     title:'Updated Course',
-//     description:'Updated Description'
-// }
-// const updateCourse=(id)=>{
-//     axios.put(`http://localhost:5000/courses/${id}`,updatedCourseData)
-//     .then((response)=>{
-//         console.log("Course updated successfully",response.data)
-//     })
-//     .catch((error)=>{
-//         console.error('Error in updating course',error)
-//     })
-// }
+const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUpdatedCourse((prevCourse) => ({
+      ...prevCourse,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdate = (id) => {
+    updateCourseData(id, updatedCourse);
+    setIsEditing(false);
+  };
+
     return(
-        <Card>
+        <Card  color='info' style={{marginBottom:12}}>
             <CardBody>
+            {isEditing ? (
+          <>
+          <label><h4>Updated Course Name: </h4></label>
+          <br></br>
+            <input type="text" name="title" style={{fontSize:10}} value={updatedCourse.title}  onChange={handleInputChange} />
+            <br></br>
+            <label><h4>Update Course Description</h4></label><br></br>
+            <textarea name="description" value={updatedCourse.description} onChange={handleInputChange} /><br></br>
+            <Button style={{marginRight:5}}color="success" onClick={() => handleUpdate(course.id)}>
+              Save
+            </Button>
+            <Button color="secondary" onClick={() => setIsEditing(false)}>
+              Cancel
+            </Button>
+          </>
+        ) : (
+          <>
                 <CardSubtitle style={{fontWeight:"bold"}}>
                     {course.title}
                 </CardSubtitle>
@@ -42,10 +64,11 @@ const deleteCourse=(id)=>{
                         deleteCourse(course.id)
                     }}>Delete</Button>
                     <Button color="warning" style={{marginLeft:5}}
-                    
-                    >Update</Button>
+                        onClick={() => setIsEditing(true)}>Update</Button>
                     
                 </Container>
+                </>
+        )}
             </CardBody>
         </Card>
     )

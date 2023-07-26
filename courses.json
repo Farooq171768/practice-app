@@ -1,14 +1,19 @@
 {
   "courses": [
     {
-      "id": "1",
-      "title": "java",
-      "description": "java"
+      "title": "Java",
+      "description": "Java is a programming language",
+      "id": "1"
     },
     {
       "id": "2",
-      "title": "python",
-      "description": "python"
+      "title": "Python",
+      "description": "Python is a programming language"
+    },
+    {
+      "id": "3",
+      "title": "React",
+      "description": "React is a javascript framework"
     }
   ]
 }

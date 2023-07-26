@@ -9,6 +9,9 @@ export const AllCourses=()=>{
   useEffect(()=>{
    document.title=`All Courses`
   },[])
+
+  const [courses, setCourses] = useState([]);
+
   //function to call server
   const getAllCoursesFromServer=()=>{
     axios.get(`http://localhost:5000/courses`)
@@ -33,23 +36,34 @@ export const AllCourses=()=>{
    getAllCoursesFromServer()
   },[])
 
-    const [courses,setCourses]= useState([
-        // {title:"Java Course",description:"This is demo course"},
-        // {title:"Django Course",description:"This is demo course"},
-        // {title:"ReactJs Course",description:"This is demo course"},
-        // {title:"Angular Course",description:"This is demo course"},
-
-    ])
-    const updateCourses=(id)=>{
+    const updateCourses=(id )=>{
       setCourses(courses.filter((c)=>c.id!==id))
     }
+    const updateCourseData = (id, updatedCourseData) => {
+      axios
+        .put(`http://localhost:5000/courses/${id}`, updatedCourseData)
+        .then((response) => {
+          toast.success('Course updated successfully', {
+            position: 'bottom-center',
+          });
+  
+            // Fetch the updated course list again from the server
+        getAllCoursesFromServer();
+      })
+        .catch((error) => {
+          console.log(error);
+          toast.error('Something went wrong', {
+            position: 'bottom-center',
+          });
+        });
+    };
     return (
   <div>
     <h1>All Courses</h1>
     <p>List of Courses are as follows</p>
     {
         courses.length>0?courses.map(
-            (item)=><Course key={item.id} course={item} update={updateCourses}/>
+            (item)=><Course key={item.id} course={item} update={updateCourses} updateCourseData={updateCourseData}/>
         ):"No Courses"
     }
   </div>

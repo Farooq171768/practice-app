@@ -23,8 +23,8 @@ export const AddCourse = () => {
     .then((response)=>{
      console.log(response)
      console.log('success')
-     toast.success('course added successfully')
      setCourse({id:'',title:'',decription:''})
+     toast.success('course added successfully') 
     })
     .catch((error)=>{
      console.log(error)
